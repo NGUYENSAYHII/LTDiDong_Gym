@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "117546711578",
+    "project_id": "go-gym-fca75",
+    "storage_bucket": "go-gym-fca75.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117546711578:android:2a4ec0b3732b9dd68b2fa3",
+        "android_client_info": {
+          "package_name": "com.example.gogym"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDylNlYZEg8VTEZ1I1cHRF0JibqfFgUkPY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
