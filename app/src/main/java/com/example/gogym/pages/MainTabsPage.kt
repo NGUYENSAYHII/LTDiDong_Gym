@@ -1,0 +1,274 @@
+package com.example.gogym.pages
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.gogym.AuthViewModel
+
+@Composable
+fun MainTabsPage(
+    authViewModel: AuthViewModel
+) {
+    val bottomNavController: NavHostController = rememberNavController()
+
+    val items = remember {
+        listOf(
+            BottomBarItem(
+                route = "tab_home",
+                label = "Kế hoạch",
+                icon = Icons.Default.Home
+            ),
+            BottomBarItem(
+                route = "tab_customize",
+                label = "Tùy chỉnh",
+                icon = Icons.Default.List
+            ),
+            BottomBarItem(
+                route = "tab_workout",
+                label = "Bài tập",
+                icon = Icons.Default.Star
+            ),
+            BottomBarItem(
+                route = "tab_settings",
+                label = "Cài đặt",
+                icon = Icons.Default.Settings
+            ),
+        )
+    }
+
+    val navBackStackEntry by bottomNavController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
+    Scaffold(
+        bottomBar = {
+            FancyBottomBar(
+                items = items,
+                currentDestination = currentDestination,
+                onItemClick = { item ->
+                    bottomNavController.navigate(item.route) {
+                        launchSingleTop = true
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        NavHost(
+            navController = bottomNavController,
+            startDestination = "tab_home",
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            composable("tab_home") {
+                HomeTabContent(authViewModel = authViewModel)
+            }
+            composable("tab_customize") {
+                // GẮN CustomizePage ở đây với 4 callback điều hướng
+                CustomizePage(
+                    onCustomPlanClick = {
+                        bottomNavController.navigate("custom_plan_detail")
+                    },
+                    onOfficeWorkoutClick = {
+                        bottomNavController.navigate("office_workout")
+                    },
+                    onAutoWorkoutClick = {
+                        bottomNavController.navigate("auto_workout")
+                    },
+                    onReportClick = {
+                        bottomNavController.navigate("workout_report")
+                    }
+                )
+            }
+            composable("tab_workout") {
+                WorkoutPage(
+                    navController = bottomNavController,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+            composable("tab_settings") {
+                SettingsPage(
+                    modifier = Modifier.fillMaxSize(),
+                    navController = bottomNavController,
+                    authViewModel = authViewModel
+                )
+            }
+
+            // Kế hoạch tập luyện tùy chỉnh (7 ngày)
+            composable("custom_plan_detail") {
+                CustomPlanDetailPage(
+                    navController = bottomNavController
+                )
+            }
+
+            // Bài tập văn phòng (5/10/15 phút)
+            composable("office_workout") {
+                OfficeWorkoutPage(
+                    navController = bottomNavController
+                )
+            }
+
+            // Báo cáo tập luyện (lịch)
+            composable("workout_report") {
+                WorkoutReportPage(
+                    navController = bottomNavController
+                )
+            }
+
+            // Tạo bài tập tự động (mục tiêu + thời lượng)
+            composable("auto_workout") {
+                AutoWorkoutPage(
+                    navController = bottomNavController
+                )
+            }
+
+            // THÊM ROUTE NÀY ĐỂ FIX CRASH: Chi tiết danh mục bài tập (với argument và default value)
+            composable(
+                route = "workout_detail/{categoryId}",
+                arguments = listOf(navArgument("categoryId") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val categoryId = backStackEntry.arguments?.getString("categoryId") ?: "abs"  // Default để tránh null crash
+                WorkoutCategoryDetailPage(
+                    categoryId = categoryId,
+                    navController = bottomNavController
+                )
+            }
+
+            // THÊM ROUTE NÀY ĐỂ HỖ TRỢ CHI TIẾT BÀI TẬP (nếu navigate từ category detail)
+            composable(
+                route = "exercise_detail/{exerciseId}",
+                arguments = listOf(navArgument("exerciseId") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val exerciseId = backStackEntry.arguments?.getString("exerciseId") ?: "abs1"  // Default để tránh null
+                ExerciseDetailPage(
+                    exerciseId = exerciseId,
+                    navController = bottomNavController
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun HomeTabContent(
+    authViewModel: AuthViewModel
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "Home Page",
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(Modifier.height(16.dp))
+
+        Button(onClick = { authViewModel.signout() }) {
+            Text("Sign Out")
+        }
+    }
+}
+
+data class BottomBarItem(
+    val route: String,
+    val label: String,
+    val icon: ImageVector
+)
+
+@Composable
+fun FancyBottomBar(
+    items: List<BottomBarItem>,
+    currentDestination: NavDestination?,
+    onItemClick: (BottomBarItem) -> Unit
+) {
+    val selectedColor = Color(0xFFFF4B4B)
+    val unselectedColor = Color(0xFF888888)
+    val backgroundColor = Color.White.copy(alpha = 0.98f)
+    val borderColor = Color(0xFFE0E0E0)
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .clip(RoundedCornerShape(24.dp))
+            .background(backgroundColor)
+            .border(
+                width = 1.dp,
+                color = borderColor,
+                shape = RoundedCornerShape(24.dp)
+            )
+    ) {
+        NavigationBar(
+            containerColor = Color.Transparent,
+            tonalElevation = 0.dp
+        ) {
+            items.forEach { item ->
+                val selected = currentDestination
+                    ?.hierarchy
+                    ?.any { it.route == item.route } == true
+
+                NavigationBarItem(
+                    selected = selected,
+                    onClick = { onItemClick(item) },
+                    icon = {
+                        Icon(
+                            imageVector = item.icon,
+                            contentDescription = item.label,
+                            tint = if (selected) selectedColor else unselectedColor
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = item.label,
+                            fontSize = 11.sp,
+                            color = if (selected) selectedColor else unselectedColor
+                        )
+                    },
+                    colors = NavigationBarItemDefaults.colors(
+                        indicatorColor = Color(0x1AFF4B4B),
+                        selectedIconColor = selectedColor,
+                        selectedTextColor = selectedColor,
+                        unselectedIconColor = unselectedColor,
+                        unselectedTextColor = unselectedColor
+                    )
+                )
+            }
+        }
+    }
+}
