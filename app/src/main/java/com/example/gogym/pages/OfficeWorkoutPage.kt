@@ -1,0 +1,367 @@
+package com.example.gogym.pages
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.gogym.R
+
+// Thời lượng: 5, 10, 15 phút
+enum class OfficeDuration(val label: String) {
+    FIVE("5 phút"),
+    TEN("10 phút"),
+    FIFTEEN("15 phút")
+}
+
+// Model 1 bài tập
+data class OfficeExercise(
+    val id: String,
+    val title: String,
+    val target: String,
+    val durationSeconds: Int,
+    val imageRes: Int
+)
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun OfficeWorkoutPage(
+    navController: NavController
+) {
+    var selectedDuration by remember { mutableStateOf(OfficeDuration.FIVE) }
+
+    // Dummy data cho từng tab – sau này bạn có thể lấy từ CSDL
+    val exercises = remember(selectedDuration) {
+        when (selectedDuration) {
+            OfficeDuration.FIVE -> sampleFiveMinutesExercises()
+            OfficeDuration.TEN -> sampleTenMinutesExercises()
+            OfficeDuration.FIFTEEN -> sampleFifteenMinutesExercises()
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "Bài tập văn phòng",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        ) {
+            // Thanh chọn 5 / 10 / 15 phút
+            DurationTabs(
+                selected = selectedDuration,
+                onSelectedChange = { selectedDuration = it }
+            )
+
+            Spacer(Modifier.height(12.dp))
+
+            // Danh sách bài tập
+            Column(
+                modifier = Modifier
+                    .weight(1f, fill = true)
+                    .fillMaxWidth()
+            ) {
+                exercises.forEach { ex ->
+                    OfficeExerciseItem(exercise = ex)
+                    Spacer(Modifier.height(8.dp))
+                }
+            }
+
+            Spacer(Modifier.height(8.dp))
+
+            // Nút BẮT ĐẦU
+            StartButton(
+                onClick = {
+                    // TODO: điều hướng sang màn thực hiện bài tập theo list exercises
+                }
+            )
+        }
+    }
+}
+
+@Composable
+private fun DurationTabs(
+    selected: OfficeDuration,
+    onSelectedChange: (OfficeDuration) -> Unit
+) {
+    val activeColor = Color(0xFF00A000) // xanh lá
+    val borderColor = Color(0xFF008000)
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(40.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .border(
+                width = 1.dp,
+                color = borderColor,
+                shape = RoundedCornerShape(8.dp)
+            )
+    ) {
+        DurationTabItem(
+            duration = OfficeDuration.FIVE,
+            selected = selected == OfficeDuration.FIVE,
+            activeColor = activeColor,
+            onSelectedChange = onSelectedChange,
+            modifier = Modifier.weight(1f)
+        )
+        DurationTabItem(
+            duration = OfficeDuration.TEN,
+            selected = selected == OfficeDuration.TEN,
+            activeColor = activeColor,
+            onSelectedChange = onSelectedChange,
+            modifier = Modifier.weight(1f)
+        )
+        DurationTabItem(
+            duration = OfficeDuration.FIFTEEN,
+            selected = selected == OfficeDuration.FIFTEEN,
+            activeColor = activeColor,
+            onSelectedChange = onSelectedChange,
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
+@Composable
+private fun DurationTabItem(
+    duration: OfficeDuration,
+    selected: Boolean,
+    activeColor: Color,
+    onSelectedChange: (OfficeDuration) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .background(if (selected) activeColor else Color.White)
+            .clickable { onSelectedChange(duration) },
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = duration.label,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium,
+            color = if (selected) Color.White else Color.Black
+        )
+    }
+}
+
+@Composable
+private fun OfficeExerciseItem(
+    exercise: OfficeExercise
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(Color.White)
+            .padding(8.dp)
+    ) {
+        Image(
+            painter = painterResource(id = exercise.imageRes),
+            contentDescription = exercise.title,
+            modifier = Modifier
+                .size(90.dp)
+                .clip(RoundedCornerShape(12.dp)),
+            contentScale = ContentScale.Crop
+        )
+
+        Spacer(Modifier.width(12.dp))
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterVertically)
+        ) {
+            Text(
+                text = exercise.title,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(Modifier.height(4.dp))
+            Text(
+                text = "Mục tiêu: ${exercise.target}",
+                fontSize = 13.sp
+            )
+            Spacer(Modifier.height(2.dp))
+            Text(
+                text = "${exercise.durationSeconds} giây",
+                fontSize = 13.sp,
+                color = Color.Gray
+            )
+        }
+    }
+}
+
+@Composable
+private fun StartButton(
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .clip(RoundedCornerShape(28.dp))
+            .background(Color.White)
+            .clickable { onClick() },
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "BẮT ĐẦU",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+/**
+ * Dữ liệu mẫu – thay imageRes bằng hình bạn có, ví dụ:
+ * R.drawable.office_ex1, office_ex2,...
+ */
+
+private fun sampleFiveMinutesExercises(): List<OfficeExercise> = listOf(
+    OfficeExercise(
+        id = "bike_crunch",
+        title = "Gập bụng đạp xe",
+        target = "Toàn cơ bụng",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_gapbung // đổi thành tên hình thực tế
+    ),
+    OfficeExercise(
+        id = "side_plank",
+        title = "Tấm ván bên",
+        target = "Thân trên",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_tamvanben
+    ),
+    OfficeExercise(
+        id = "bike_crunch_2",
+        title = "Gập bụng đạp xe",
+        target = "Toàn cơ bụng",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_gapbung
+    ),
+    OfficeExercise(
+        id = "side_plank_2",
+        title = "Tấm ván bên",
+        target = "Thân trên",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_tamvanben
+    ),
+    OfficeExercise(
+        id = "v_stand",
+        title = "Đứng V",
+        target = "Thân dưới",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_dungv
+    )
+)
+
+private fun sampleTenMinutesExercises(): List<OfficeExercise> = listOf(
+    OfficeExercise(
+        id = "wall_push_one_arm",
+        title = "Tường chống đẩy một tay",
+        target = "Thân trên",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_chongday1tay
+    ),
+    OfficeExercise(
+        id = "shake_chair",
+        title = "Ghế rung",
+        target = "Cơ bụng dưới",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_gherung
+    ),
+    OfficeExercise(
+        id = "circle_side",
+        title = "Vòng tròn bên",
+        target = "Thân trên",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_vtb
+    ),
+    OfficeExercise(
+        id = "wall_push_one_arm2",
+        title = "Tường chống đẩy một tay",
+        target = "Thân trên",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_chongday1tay
+    ),
+    OfficeExercise(
+        id = "wall_push_one_arm3",
+        title = "Tường chống đẩy một tay",
+        target = "Thân trên",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_chongday1tay
+    )
+)
+
+private fun sampleFifteenMinutesExercises(): List<OfficeExercise> = listOf(
+    OfficeExercise(
+        id = "single_plank",
+        title = "Tấm ván một tay",
+        target = "Thân trên",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_chongday1tay
+    ),
+    OfficeExercise(
+        id = "chair_squat",
+        title = "Ngồi xổm bằng súng lục trên ghế",
+        target = "Thân dưới",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_ngoi
+    ),
+    OfficeExercise(
+        id = "chair_crunch",
+        title = "Ghế gập bụng",
+        target = "Toàn cơ bụng",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_ghegapbung
+    ),
+    OfficeExercise(
+        id = "leg_raise",
+        title = "Nâng chân",
+        target = "Toàn cơ bụng",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_nangchan
+    ),
+    OfficeExercise(
+        id = "shake_chair2",
+        title = "Ghế rung",
+        target = "Cơ bụng dưới",
+        durationSeconds = 30,
+        imageRes = R.drawable.office_workout_gherung
+    )
+)
