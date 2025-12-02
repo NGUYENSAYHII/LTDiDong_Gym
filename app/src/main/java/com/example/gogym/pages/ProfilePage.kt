@@ -582,7 +582,7 @@ private fun reportProblem(context: Context) {
 }
 
 private fun shareApp(context: Context) {
-    val link = "git@github.com:NGUYENSAYHII/LTDiDong_Gym.git"
+    val link = "https://drive.google.com/file/d/1JgwwI58VpZAJyE4Nr9kGWnaYmP-jS3rr/view?usp=sharing"
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
         putExtra(Intent.EXTRA_TEXT, "Hãy tập luyện cùng mình với Go Gym: $link")
