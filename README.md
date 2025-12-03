@@ -1,139 +1,167 @@
-📱 GoGym – Ứng Dụng Theo Dõi Sức Khỏe
+# GoGym – Ứng Dụng Theo Dõi Sức Khỏe
 
-GoGym là ứng dụng di động về sức khỏe được xây dựng bằng Kotlin + Jetpack Compose dành cho Android.
-Ứng dụng cho phép theo dõi bài tập, bữa ăn, lượng nước và tiến độ mục tiêu sức khỏe, tích hợp Firebase Authentication và Firestore để lưu dữ liệu thời gian thực.
+GoGym là ứng dụng di động về sức khỏe được xây dựng bằng Kotlin và Jetpack Compose.  
+Ứng dụng hỗ trợ người dùng theo dõi bài tập, bữa ăn, lượng nước uống và tiến độ mục tiêu sức khỏe.  
+Firebase được tích hợp để xác thực (bao gồm Đăng nhập bằng Google) và lưu trữ dữ liệu (Firestore).  
+Ứng dụng hỗ trợ chủ đề sáng/tối, màu động (Android 12+) và bố cục responsive.
 
-🚀 Mô Tả
+---
+## [Link Fima](https://www.figma.com/design/G6wcqTWKfg53O3UEePpGsQ/ThietKeDiDong_Gym?node-id=0-1&t=Z4FfSD2pk4C87bQc-1)
 
-GoGym cung cấp các tính năng:
 
-Ghi nhật ký bài tập, bữa ăn và lượng nước
+---
+## 1. Mô Tả Chung
 
-Xem tổng quan calo đốt – nạp – còn lại
+GoGym cho phép người dùng:
 
-Truy cập danh mục bài tập có hình ảnh
+- Ghi nhật ký bài tập, bữa ăn và lượng nước.
+- Xem tóm tắt hàng ngày: calo đốt cháy, calo nạp vào, calo còn lại.
+- Duyệt các bài tập theo danh mục với mô tả, hình minh họa và bộ đếm thời gian.
+- Tạo kế hoạch tập luyện tùy chỉnh.
+- Quản lý hồ sơ cá nhân và cài đặt.
+- Đồng bộ dữ liệu theo thời gian thực thông qua Firebase.
 
-Bài tập tự động theo mục tiêu
+---
 
-Tạo kế hoạch luyện tập
+## 2. Tính Năng
 
-Quản lý hồ sơ cá nhân
+###  Xác thực người dùng
+- Đăng ký / Đăng nhập bằng Email & Password
+- Đăng nhập bằng Google
+- Quên mật khẩu
 
-Tự động đồng bộ dữ liệu Firebase
+###  Bảng điều khiển trang chủ
+- Mục tiêu calo hằng ngày
+- Calo tiêu thụ / nạp vào
+- Lượng nước uống
+- Phân tích bữa ăn (sáng – trưa – tối – snack)
 
-Ứng dụng hỗ trợ:
+###  Theo dõi bài tập
+- Danh mục: Bụng, Tay, Ngực, Chân, Lưng & Vai, Văn Phòng, Kickboxing
+- Chi tiết bài tập: mô tả + ảnh + bộ đếm thời gian + calo
+- Tạo bài tập tự động theo khu vực & thời lượng
+- Lập kế hoạch tập luyện theo ngày trong tuần
 
-Chủ đề sáng/tối
+###  Ghi nhật ký bữa ăn
+- Thêm món ăn
+- Tính calo & protein
+- Tìm kiếm & đánh dấu yêu thích
 
-Màu động (Android 12+)
+###  Theo dõi nước uống
+- Ghi nhận theo lít
 
-Bố cục responsive
+###  Quản lý hồ sơ cá nhân
+- Tuổi, cân nặng, chiều cao, mục tiêu
+- Đổi ngôn ngữ (VI/EN)
+- Đổi đơn vị đo (kg/lbs, cm/inch)
 
-✨ Tính Năng Chính
-🔐 Xác Thực
+###  Báo cáo
+- Lịch tập luyện
+- Báo cáo theo ngày / tuần
 
-Đăng ký / Đăng nhập email – mật khẩu
+---
 
-Đăng nhập Google
+## 3. Công Nghệ Sử Dụng
 
-Quên mật khẩu
+- **Kotlin**
+- **Jetpack Compose (Material 3)**
+- **Navigation Compose**
+- **ViewModel, Coroutines, LiveData, StateFlow**
+- **Firebase Authentication, Firestore**
+- **Coil**
+- **Google Sign-In API**
+- **Kiến trúc: MVVM + Repository Pattern**
 
-🏠 Bảng Điều Khiển Trang Chủ
+---
 
-Lượng calo tiêu thụ
+## 4. Cấu Trúc Dự Án
 
-Calo nạp
-
-Calo còn lại
-
-Lượng nước
-
-Phân loại bữa ăn (sáng/trưa/tối/snack)
-
-💪 Theo Dõi Bài Tập
-
-7 nhóm bài tập: Bụng, Tay, Ngực, Chân, Lưng–Vai, Văn phòng, Kickboxing
-
-Chi tiết bài tập: hình ảnh, mô tả, timer, lượng calo
-
-Gợi ý bài tập theo mục tiêu
-
-Lịch tập luyện theo tuần
-
-🍽️ Ghi Nhật Ký Bữa Ăn
-
-Thêm món ăn
-
-Tính calo & protein
-
-Tìm kiếm + danh sách yêu thích
-
-💧 Theo Dõi Nước
-
-Ghi nước theo ml/lít
-
-👤 Hồ Sơ & Cài Đặt
-
-Ngôn ngữ: VI / EN
-
-Tùy chọn đơn vị (kg/lbs – cm/inch)
-
-Đổi thông tin cá nhân
-
-🧰 Công Nghệ Sử Dụng
-
-Ngôn ngữ: Kotlin
-
-UI: Jetpack Compose + Material 3
-
-Navigation: Navigation Compose
-
-State Management: ViewModel, LiveData, StateFlow
-
-Backend: Firebase Auth + Firestore
-
-Libraries:
-
-Coil (load ảnh)
-
-Google Sign-In
-
-Kiến trúc: MVVM + Repository
-
-📁 Cấu Trúc Dự Án
-com.example.gogym/
+```
+com.example.gogym
 │
-├── ui/theme/              
-├── model/                
-├── pages/                
-│   ├── Auth
-│   ├── Home
-│   ├── Workout
-│   ├── Profile
-│   └── Navigation
-└── data/
+├── ui/theme
+│   ├── Color.kt
+│   ├── Type.kt
+│   ├── Theme.kt
+│   └── GoGymTheme.kt
+│
+├── model
+│   ├── MealType.kt
+│   ├── MealModels.kt
+│   └── WorkoutAndWaterModels.kt
+│
+├── pages
+│   ├── LoginPage.kt
+│   ├── SignupPage.kt
+│   ├── HomePage.kt
+│   ├── AddFoodPage.kt
+│   ├── WorkoutPage.kt
+│   ├── WorkoutCategoryDetailPage.kt
+│   ├── ExerciseDetailPage.kt
+│   ├── OfficeWorkoutPage.kt
+│   ├── AutoWorkoutPage.kt
+│   ├── CustomPlanDetailPage.kt
+│   ├── WorkoutReportPage.kt
+│   ├── ProfilePage.kt
+│   ├── SettingsPage.kt
+│   ├── CustomizePage.kt
+│   ├── MainTabsPage.kt
+│   ├── MyAppNavigation.kt
+│   └── NavHelpers.kt
+│
+└── data
+    └── HomeRepository.kt
+```
 
-🔧 Cài Đặt
-Yêu Cầu
+**Điểm vào chính:** `MyAppNavigation.kt`
 
-Android Studio mới nhất
+---
 
-Kotlin 1.9+
+## 5. Thiết Lập và Cài Đặt
 
-Firebase Project
+### Yêu cầu
+- Android Studio mới nhất
+- Kotlin 1.9+
+- Tạo Firebase Project
+- File `google-services.json` trong thư mục **app/**
 
-File google-services.json
+### Cách cài đặt
 
-Thiết Lập
-git clone <repo>
+```
+git clone <repository-url>
+```
+
+1. Mở bằng Android Studio  
+2. Kết nối Firebase  
+3. Bật Authentication (Email/Password & Google)  
+4. Bật Firestore  
+5. Đặt `google-services.json` vào `/app`  
+6. Cập nhật `default_web_client_id` trong `strings.xml`  
+7. Sync Gradle & Build  
+
+---
+
+## 6. Quy Tắc Firebase
+
+```js
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
+```
+
+---
+
+## 7. Sử Dụng
+
+- Mở app → chuyển đến màn hình đăng nhập  
+- Đăng nhập email hoặc Google  
+- Trang chủ: xem thống kê, thêm đồ ăn / nước uống / bài tập  
+- Mục bài tập: chọn danh mục, bắt đầu với bộ đếm thời gian  
+- Hồ sơ: chỉnh sửa thông tin và cài đặt  
 
 
-Sau đó:
-
-Mở Android Studio
-
-Kết nối Firebase Auth + Firestore
-
-Thêm google-services.json vào app/
-
-Sync Gradle → Run
