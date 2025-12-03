@@ -48,40 +48,46 @@ private fun calculateCalories(minutes: Int, caloriesPerMinute: Double = 8.0): In
 // Lookup function để đảm bảo tên + ảnh + mô tả đồng bộ giữa các màn
 fun lookupExerciseDetail(exerciseId: String): ExerciseDetail {
     return when (exerciseId) {
-        //  CƠ BỤNG
+        // ==================== CƠ BỤNG ====================
         "abs1" -> ExerciseDetail(
             id = exerciseId,
             name = "Chéo",
             difficulty = "Dễ",
             timeOrReps = "30 giây",
-            description = "Nằm ngửa, nâng chân 30°, tay duỗi thẳng đẩy qua chạm gót luân phiên. Chú ý đừng để chân chạm vào sàn nhà. Giữ phần cưới của lưng bạn tiếp xúc với sàn.Nhớ hit thở đều khi tập luyện.",
+            description = "Nằm ngửa, tay sau đầu. Nâng vai lên và chéo tay chạm đầu gối đối diện luân phiên.",
             fullImageRes = R.drawable.bung_cheo,
             caloriesPerMinute = 70.5
         )
-        "abs2" -> ExerciseDetail(exerciseId, "Đẩy qua", "Dễ", "30 giây", "Nằm ngửa, nâng chân 90°, tay duỗi thẳng đẩy qua chạm gót luân phiên. Thay vì gập người lên bằng hay tay ở đầu, bạn đẩy hai tay qua hai chân để tạo áp lực lên cơ bung.", R.drawable.b_dayqua, 24.0)
-        "abs3" -> ExerciseDetail(exerciseId, "Gập truyền thống", "Dễ", "3x20", "Nằm ngửa, gập người lên chạm tay vào đầu gối. Giữ vai không tiếp xúc với sàn.Chú ý tập trung vào cơ bụng khi thực hiện tránh thực hiện động tác với đẩy đà.", R.drawable.b_truyenthong,23.8)
-        "abs4" -> ExerciseDetail(exerciseId, "Chạm gót", "Dễ", "30 giây", "Nằm ngửa, tay duỗi thẳng chạm gót chân luân phiên. Tập trung vào phần cơ liên sườn hai bên.", R.drawable.b_chamgot,16.6)
-        //  TAY
+        "abs2" -> ExerciseDetail(exerciseId, "Đẩy qua", "Dễ", "30 giây", "Nằm ngửa, nâng chân 90°, tay duỗi thẳng đẩy qua chạm gót luân phiên.", R.drawable.b_dayqua, 24.0)
+        "abs3" -> ExerciseDetail(exerciseId, "Gập truyền thống", "Dễ", "3x20", "Nằm ngửa, gập người lên chạm tay vào đầu gối.", R.drawable.b_truyenthong,23.8)
+        "abs4" -> ExerciseDetail(exerciseId, "Chạm gót", "Dễ", "30 giây", "Nằm ngửa, tay duỗi thẳng chạm gót chân luân phiên.", R.drawable.b_chamgot,16.6)
+        // ==================== TAY ====================
         "arm1" -> ExerciseDetail(exerciseId, "Ở cửa", "Dễ", "3x12", "Đứng ở cửa, dùng tay chống đẩy vào khung cửa.", R.drawable.t_ocua,32.5)
-        "arm2" -> ExerciseDetail(exerciseId, "Tay đẩy ghế", "Dễ", "3x15", "Dùng ghế làm điểm tựa, chống đẩy tay vào băng ghế và từ từ hạ cơ thể xuống. Tập trung vào sức mạnh đôi tay và vai.", R.drawable.t_dayghe,24.0)
-        "arm3" -> ExerciseDetail(exerciseId, "Căng ngực nâng động", "Dễ", "30 giây", "Căng ngực rồi nâng tay lên cao, cố gắng kéo 2 tay càng xa càng tốt để cảm nhận tốt nhóm cơ.", R.drawable.t_cangnguc,30.2)
+        "arm2" -> ExerciseDetail(exerciseId, "Tay đẩy ghế", "Dễ", "3x15", "Dùng ghế làm điểm tựa, chống đẩy tay.", R.drawable.t_dayghe,24.0)
+        "arm3" -> ExerciseDetail(exerciseId, "Căng ngực nâng động", "Dễ", "30 giây", "Căng ngực rồi nâng tay lên cao.", R.drawable.t_cangnguc,30.2)
         "arm4" -> ExerciseDetail(exerciseId, "Phối cung thủ", "Trung bình", "3x12 mỗi bên", "Giả vờ kéo cung, siết cơ tay.", R.drawable.t_phoicungthu,21.5)
-        //  NGỰC
+        // ==================== NGỰC ====================
         "chest1" -> ExerciseDetail(exerciseId, "Phối cung thủ", "Trung bình", "3x12", "Tương tự bài tay nhưng tập trung vào ngực.", R.drawable.t_phoicungthu,19.5)
         "chest2" -> ExerciseDetail(exerciseId, "Nâng cao cánh tay", "Trung bình", "30 giây", "Nâng tay lên cao, siết cơ ngực.", R.drawable.n_caotay,18.0)
         "chest3" -> ExerciseDetail(exerciseId, "Máy khoan đá", "Dễ", "30 giây", "Chạy tại chỗ nâng cao gối.", R.drawable.n_khoanda,23.0)
         "chest4" -> ExerciseDetail(exerciseId, "Mở rộng cơ tam đầu", "Khó", "3x10", "Chống đẩy hẹp tay.", R.drawable.n_cotamdau,19.0)
-        //  CHÂN
+        // ==================== CHÂN ====================
         "leg1" -> ExerciseDetail(exerciseId, "Ở cửa", "Dễ", "3x12 mỗi chân", "Dùng khung cửa hỗ trợ squat một chân.", R.drawable.t_ocua,19.0)
         "leg2" -> ExerciseDetail(exerciseId, "Chống đẩy bằng ngón chân", "Trung bình", "30 giây", "Plank trên ngón chân.", R.drawable.n_ngonchan,17.5)
         "leg3" -> ExerciseDetail(exerciseId, "Nâng cao cánh tay", "Trung bình", "30 giây", "Squat + nâng tay.", R.drawable.n_caotay,31.8)
         "leg4" -> ExerciseDetail(exerciseId, "Con sâu", "Dễ", "30 giây", "Inchworm – đi bộ tay.", R.drawable.c_consau,19.2)
-        //  LƯNG & VAI
+        // ==================== LƯNG & VAI ====================
         "back1" -> ExerciseDetail(exerciseId, "Giới hạn chân thẳng", "Dễ", "30 giây", "Cúi người giữ chân thẳng.", R.drawable.v_chanthang,27.5)
         "back2" -> ExerciseDetail(exerciseId, "Squat và nhảy", "Trung bình", "3x10", "Squat rồi bật nhảy.", R.drawable.v_squatnhay,22.0)
         "back3" -> ExerciseDetail(exerciseId, "Trượt băng ngồi xổm", "Trung bình", "30 giây", "Side skater.", R.drawable.v_ngoixom,12.8)
         "back4" -> ExerciseDetail(exerciseId, "Tư thế trẻ em", "Dễ", "60 giây", "Thư giãn lưng.", R.drawable.v_treem,12.0)
-        //  KICKBOXING
+        // ==================== VĂN PHÒNG ====================
+        // Các drawable office_* phải có trong res/drawable (png/jpg/webp hoặc vector)
+        "off1" -> ExerciseDetail(exerciseId, "Gập bụng đạp xe", "Dễ", "30 giây", "Bicycle crunch tại chỗ.", R.drawable.office_workout_gapbung, 16.5)
+        "off2" -> ExerciseDetail(exerciseId, "Tấm ván bên", "Dễ", "30 giây", "Tấm ván bên giữ thăng bằng.", R.drawable.office_workout_tamvanben, 16.8)
+        "off3" -> ExerciseDetail(exerciseId, "Đứng V", "Dễ", "30 giây", "Đứng V tập thân dưới.", R.drawable.office_workout_dungv, 16.2)
+        "off4" -> ExerciseDetail(exerciseId, "Ghế rung", "Dễ", "30 giây", "Động tác rung trên ghế tập cơ bụng dưới.", R.drawable.office_workout_gherung, 16.0)
+        // ==================== KICKBOXING ====================
         "kb1" -> ExerciseDetail(exerciseId, "Tay đẩy ghế", "Dễ", "3x15", "Đấm nhanh vào ghế.", R.drawable.t_dayghe,18.0)
         "kb2" -> ExerciseDetail(exerciseId, "Chống đẩy nâng thân người", "Dễ", "3x10", "Burpee không nhảy.", R.drawable.k_hitdat,12.5)
         "kb3" -> ExerciseDetail(exerciseId, "Giới hạn chân thẳng", "Dễ", "30 giây", "Đá cao giữ chân thẳng.", R.drawable.v_chanthang,17.0)
@@ -130,6 +136,7 @@ fun ExerciseDetailPage(
     } ?: detail.timeOrReps
     var showTimer by remember { mutableStateOf(startImmediately) }
     var burnedCalories by remember { mutableIntStateOf(0) }
+    var hasCompleted by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -186,13 +193,43 @@ fun ExerciseDetailPage(
             )
             Spacer(Modifier.height(16.dp))
         }
-        Button(
-            onClick = { showTimer = true },
-            modifier = Modifier
-                .fillMaxWidth(0.8f)
-                .height(56.dp)
-        ) {
-            Text("BẮT ĐẦU TẬP", fontSize = 18.sp)
+        if (hasCompleted) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Button(
+                    onClick = {
+                        navController.popBackStack()
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
+                    modifier = Modifier
+                        .height(56.dp)
+                        .weight(1f)
+                ) {
+                    Text("Hoàn thành", color = Color.White, fontSize = 18.sp)
+                }
+                Button(
+                    onClick = {
+                        showTimer = true
+                        hasCompleted = false
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
+                    modifier = Modifier
+                        .height(56.dp)
+                        .weight(1f)
+                ) {
+                    Text("Thực hiện lại", color = Color.White, fontSize = 18.sp)
+                }
+            }
+        } else {
+            Button(
+                onClick = { showTimer = true },
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .height(56.dp)
+            ) {
+                Text("BẮT ĐẦU TẬP", fontSize = 18.sp)
+            }
         }
     }
     // Fullscreen Timer
@@ -201,9 +238,14 @@ fun ExerciseDetailPage(
         FullScreenTimer(
             seconds = defaultSeconds,
             caloriesPerMinute = detail.caloriesPerMinute,
+            fullImageRes = detail.fullImageRes,
             onFinish = {
                 val minutes = kotlin.math.max(1, (defaultSeconds + 59) / 60)
                 val calories = calculateCalories(minutes, detail.caloriesPerMinute)
+                // Cập nhật UI trên màn chi tiết
+                burnedCalories = calories
+                showTimer = false
+                hasCompleted = true
                 // Ghi log workout để HomePage lấy được calories đã đốt
                 homeViewModel.logWorkout(
                     exerciseId = detail.id,
@@ -211,31 +253,27 @@ fun ExerciseDetailPage(
                     calories = calories,
                     durationSec = defaultSeconds
                 )
-                // Quay lại trang bài tập nhóm cơ trước đó
-                navController.popBackStack()
             },
             onBack = { showTimer = false }
         )
     }
 }
-
 // Timer fullscreen + tính calo (sửa UI: nền trắng, text đen, thêm "Đang hẹn giờ", nút đen)
 @Composable
 fun FullScreenTimer(
     seconds: Int = 30,
     caloriesPerMinute: Double,
+    fullImageRes: Int,
     onFinish: () -> Unit,
     onBack: () -> Unit
 ) {
     val context = LocalContext.current
     var timeLeft by remember { mutableIntStateOf(seconds) }
-    var isFinished by remember { mutableStateOf(false) }
-
-    LaunchedEffect(timeLeft, isFinished) {
-        if (!isFinished && timeLeft > 0) {
+    LaunchedEffect(timeLeft) {
+        if (timeLeft > 0) {
             delay(1000L)
             timeLeft--
-        } else if (timeLeft == 0 && !isFinished) {
+        } else if (timeLeft == 0) {
             // Âm thanh + rung
             try {
                 RingtoneManager.getRingtone(
@@ -247,14 +285,12 @@ fun FullScreenTimer(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 v.vibrate(VibrationEffect.createOneShot(1000, VibrationEffect.DEFAULT_AMPLITUDE))
             } else @Suppress("DEPRECATION") v.vibrate(1000)
-            isFinished = true
+            onFinish()
         }
     }
-
     BackHandler(enabled = true) {
         onBack()
     }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -262,63 +298,42 @@ fun FullScreenTimer(
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            if (!isFinished) {
-                Text(
-                    text = "Đang hẹn giờ",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black // Màu đen dễ thấy
-                )
-                Spacer(Modifier.height(16.dp))
-                Text(
-                    text = "$timeLeft",
-                    fontSize = if (timeLeft <= 5) 140.sp else 120.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black // Màu đen
-                )
-                Spacer(Modifier.height(60.dp))
-                Button(
-                    onClick = onBack,
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Black), // Nút màu đen
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .height(56.dp)
-                ) {
-                    Text("DỪNG LẠI", color = Color.White, fontSize = 20.sp) // Text trắng dễ thấy
-                }
-            } else {
-                Text(
-                    text = "Hoàn thành!",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
-                )
-                Spacer(Modifier.height(32.dp))
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    Button(
-                        onClick = onFinish,
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
-                        modifier = Modifier
-                            .height(56.dp)
-                            .weight(1f)
-                    ) {
-                        Text("Hoàn thành", color = Color.White, fontSize = 18.sp)
-                    }
-                    Button(
-                        onClick = {
-                            timeLeft = seconds
-                            isFinished = false
-                        },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
-                        modifier = Modifier
-                            .height(56.dp)
-                            .weight(1f)
-                    ) {
-                        Text("Thực hiện lại", color = Color.White, fontSize = 18.sp)
-                    }
-                }
+            Text(
+                text = "Đang hẹn giờ",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black // Màu đen dễ thấy
+            )
+            Spacer(Modifier.height(16.dp))
+            val imagePainter = rememberAsyncImagePainter(
+                model = fullImageRes,
+                error = painterResource(android.R.drawable.ic_menu_gallery),
+                onError = { Log.e("Timer", "Load image error: ${it.result.throwable}") }
+            )
+            Image(
+                painter = imagePainter,
+                contentDescription = "Hình ảnh bài tập",
+                modifier = Modifier
+                    .size(200.dp)
+                    .clip(RoundedCornerShape(16.dp)),
+                contentScale = ContentScale.Crop
+            )
+            Spacer(Modifier.height(16.dp))
+            Text(
+                text = "$timeLeft",
+                fontSize = if (timeLeft <= 5) 140.sp else 120.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black // Màu đen
+            )
+            Spacer(Modifier.height(60.dp))
+            Button(
+                onClick = onBack,
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Black), // Nút màu đen
+                modifier = Modifier
+                    .padding(16.dp)
+                    .height(56.dp)
+            ) {
+                Text("DỪNG LẠI", color = Color.White, fontSize = 20.sp) // Text trắng dễ thấy
             }
         }
     }
