@@ -58,9 +58,9 @@ fun AddFoodPage(
     val totalSelectedCalories = selectedFoods.values.sumOf { it.calories * it.amount }
 
     val titleText = when (mealType) {
-        MealType.BREAKFAST -> "Breakfast"
-        MealType.LUNCH -> "Lunch"
-        MealType.DINNER -> "Dinner"
+        MealType.BREAKFAST -> "Buổi sáng"
+        MealType.LUNCH -> "Buổi trưa"
+        MealType.DINNER -> "Bữa tối"
         MealType.SNACK -> "Snack"
     }
 
